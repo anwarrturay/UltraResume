@@ -35,7 +35,6 @@ const Auth = () => {
     };
 
     const handleSubmitForm = async (data) => {
-        console.log("form submitted:", data);
         setIsLoading(true);
 
         try {

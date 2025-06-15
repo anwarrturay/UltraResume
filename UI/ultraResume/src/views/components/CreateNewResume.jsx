@@ -105,10 +105,8 @@ const CreateNewResume = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log("Project Tools: ", formData?.projects?.tools)
 
     const formDataToSend = new FormData();
-    console.log("Form Data To Send", formDataToSend);
 
     if(formData.image){
       formDataToSend.append('image', formData.image);
@@ -135,7 +133,6 @@ const CreateNewResume = () => {
         formDataToSend,
         {headers:{"Content-Type": "multipart/form-data"}}
       );
-      console.log(response?.data);
       setResumeId(response?.data?.savedResume?._id);
 
       if (response.status === 201) {

@@ -50,7 +50,6 @@ const MyResumes = () => {
   };
 
   const filteredResumes = resumes.filter(resume => {
-    console.log(resume?.resumeUrl);
     const searchString = searchTerm.toLowerCase();
     const title = resume.personalDetails?.title?.toLowerCase() || '';
     return title.includes(searchString);

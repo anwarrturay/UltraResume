@@ -19,7 +19,6 @@ const ResetPassword = () => {
     const { token } = useParams();
     const resetpasswordUrl = `/auth/reset-password/${token}`
     const resetPasswordForm = async (data)=>{
-        console.log("form submitted: ", data);
         setLoading(true);
         const formData = new FormData();
         formData.append("password", data.password)
@@ -29,7 +28,6 @@ const ResetPassword = () => {
                 formData,
                 {headers: {"Content-Type": "application/json"}}
             )
-            console.log("Server Response: ", response.data);
             if(response?.status === 200){
                 setSuccess(true);
                 reset();

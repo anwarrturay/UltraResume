@@ -30,7 +30,6 @@ const Register = () => {
         
 
     const handleSubmitForm = async (data)=>{
-        console.log("clicked", data) 
         setIsLoading(true);
 
         const formData = new FormData();
@@ -53,7 +52,6 @@ const Register = () => {
                     headers: {"Content-Type": "multipart/form-data"}
                 }
             )
-            console.log(response.data);
             if(response.status === 201){
                 setSuccess(true);
                 reset();

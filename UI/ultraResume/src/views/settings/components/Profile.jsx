@@ -76,9 +76,7 @@ const Profile = () => {
     formData.append("image", file);
   
     try {
-      const response = await axiosPrivate.patch(`/users/profile/${userId}`, formData);
-      console.log(response.data);
-  
+      const response = await axiosPrivate.patch(`/users/profile/${userId}`, formData);  
       if (response.status === 200) {  
         const updatedImageUrl = response.data.image?.startsWith("/uploads")
           ? `${BASE_URL}${response.data.image}`

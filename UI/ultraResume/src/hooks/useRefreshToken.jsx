@@ -15,9 +15,6 @@ const useRefreshToken = () => {
             );
 
             setAuth((prev)=>{
-                console.log("Previous auth state: ",JSON.stringify(prev)),
-                console.log("New access token secret: ", response.data.accessToken)
-
                 const decodedNewToken = jwtDecode(response.data.accessToken)
                 const id = decodedNewToken.UserInfo.id;
 

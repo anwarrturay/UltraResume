@@ -22,7 +22,6 @@ const SubmitReport = () => {
   })
 
   const handleSubmitReport = async (data) => {
-    console.log("Form Submitted: ", data);
     setLoading(true);
     try{
         const response = await axiosPrivate.post(
@@ -30,7 +29,6 @@ const SubmitReport = () => {
           JSON.stringify({reportType: data.reportType, description: data.description}),
           {headers: {"Content-Type": "application/json"}}
         );
-        console.log(response.data);
         if(response.status === 200){
           setSuccess(true);
           reset()

@@ -19,7 +19,6 @@ const Password = () => {
     const userId = auth?.userId;
 
     const handleChangePassword = async (data)=>{
-        console.log("password: ", data);
         const formData = new FormData();
         formData.append("password", data.password)
         try{

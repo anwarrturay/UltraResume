@@ -18,7 +18,6 @@ const ForgotPassword = () => {
   })
   const requestUrl = "/forgot-password"; 
   const RenderEmail = async (data)=>{
-    console.log("form Submitted", data);
     setLoading(true);
     const formData = new FormData();
     formData.append("email", data.email)
@@ -28,7 +27,6 @@ const ForgotPassword = () => {
         formData,
         {headers: {"Content-Type": "application/json"}}
       );
-      console.log("Server response: ", response.data);
       if(response.status === 200){
         setSuccess(true);
         reset();
