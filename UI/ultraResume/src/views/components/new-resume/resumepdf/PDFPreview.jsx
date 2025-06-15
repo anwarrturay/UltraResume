@@ -77,7 +77,7 @@ const PDFPreview = ({ formData, onReady  }) => {
   return (
     <canvas
       ref={canvasRef}
-      className="w-full border-none"
+      className="w-full border border-[#ccc]"
       style={{
         maxWidth: '100%',
         display: 'block',

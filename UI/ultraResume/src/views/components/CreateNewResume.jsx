@@ -135,7 +135,7 @@ const CreateNewResume = () => {
         formDataToSend,
         {headers:{"Content-Type": "multipart/form-data"}}
       );
-      console.log(response.data);
+      console.log(response?.data);
       setResumeId(response?.data?.savedResume?._id);
 
       if (response.status === 201) {
@@ -323,7 +323,7 @@ const CreateNewResume = () => {
                     setPdfReady(false)
                     setResumeGenerated(false);
                   }}
-                  className="absolute -right-2 sm:-right-3 -top-2 sm:-top-3 p-2 bg-gray-200 hover:bg-gray-300 rounded-full transition-colors cursor-pointer z-10"
+                  className="absolute -right-1 sm:-right-3 -top-2 sm:-top-3 p-2 bg-gray-200 hover:bg-gray-300 rounded-full transition-colors cursor-pointer z-10"
                 >
                   <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
                 </button>
@@ -337,24 +337,12 @@ const CreateNewResume = () => {
                 
                 <div className={pdfReady ? "block" : "hidden"}>
                   <PDFPreview formData={formData} onReady={onPdfReady} />
-                  <p className="text-sm mt-2 font-semibold">Click Download to see full resume</p>
+                  <p className="text-sm mt-2 font-semibold text-gray-500">Click Download to see full resume</p>
                 </div>
               </div>
 
               {/* Buttons below PDF */}
               <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4 px-2">
-                {/* <PDFDownloadLink
-                  document={<MyDocument formData={formData} />}
-                  fileName={`${formData?.personalDetails?.name}.pdf`}
-                  className="inline-flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 border border-transparent text-sm sm:text-base font-medium rounded-md shadow-sm text-white bg-[#2A5D9E] hover:bg-[#234e86] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2A5D9E] transition-colors cursor-pointer w-full sm:w-auto"
-                >
-                  {({ loading }) => (
-                    <>
-                      <Download className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                      {loading ? "Preparing..." : "Download"}
-                    </>
-                  )}
-                </PDFDownloadLink> */}
                 {pdfReady && (
                   <PDFDownloadLink
                     document={<MyDocument formData={formData} />}

@@ -30,15 +30,16 @@ const ResumeSchema = new Schema(
     },
     summary: {
       type: String,
+      required:true,
       trim: true,
     },
     experience: [
       {
-        jobTitle: { type: String, required: true, trim: true },
-        company: { type: String, required: true, trim: true },
-        startDate: { type: String, required: true },
-        endDate: { type: String },
-        responsibilities: { type: String, trim: true },
+        jobTitle: { type: String, required:true, trim: true },
+        company: { type: String, required:true, trim: true },
+        startDate: { type: String, required:true, },
+        endDate: { type: String, required:true, },
+        responsibilities: { type: String, required:true, trim: true },
       },
     ],
     education: [
@@ -53,15 +54,15 @@ const ResumeSchema = new Schema(
     skills: [{ type: String, trim: true }],
     projects: [
       {
-        title: { type: String, required: true, trim: true },
-        description: { type: String, required: true, trim: true },
+        title: { type: String, required:true, trim: true },
+        description: { type: String, required:true, trim: true },
       },
     ],
     certifications: [
       {
-        name: { type: String, required: true, trim: true },
-        issuingOrganization: { type: String, required: true, trim: true },
-        issueDate: { type: String, required: true },
+        name: { type: String, required:true,  trim: true },
+        issuingOrganization: { type: String, required:true,  trim: true },
+        issueDate: { type: String, required:true,},
       },
     ],
     languages: [{ 
@@ -70,9 +71,9 @@ const ResumeSchema = new Schema(
     }],
     references: [
       {
-        name: { type: String, required: true, trim: true },
-        position: { type: String, required: true, trim: true },
-        contact: { type: String, required: true, trim: true },
+        name: { type: String, required:true, trim: true },
+        position: { type: String, required:true, trim: true },
+        contact: { type: String, required:true, trim: true },
       },
     ],
     hobbies: [{ type: String, trim: true }],

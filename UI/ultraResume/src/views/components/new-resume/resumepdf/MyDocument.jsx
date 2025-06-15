@@ -1,7 +1,6 @@
 import { Buffer } from 'buffer';
 globalThis.Buffer = Buffer;
-
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Page, Text, View, Document, Image } from '@react-pdf/renderer';
 import UserIcon from "./icons/user.png";
 import Lock from "./icons/lock.png";
@@ -41,9 +40,7 @@ const MyDocument = ({ formData }) => {
           const url = URL.createObjectURL(image);
           setImageUrl(url);
           return () => URL.revokeObjectURL(url);
-        } else if (typeof image === 'string' && image.startsWith('http')) {
-          setImageUrl(image);
-        } else if (typeof image === 'string' && image.startsWith('data:image')) {
+        } else if (typeof image === 'string' && (image.startsWith('http') || image.startsWith('data:image'))) {
           setImageUrl(image);
         } else {
           console.warn('Invalid image format:', image);
@@ -70,31 +67,31 @@ const MyDocument = ({ formData }) => {
               </View>
               <View style={styles.leftSection.nameprofessionCont}>
                 <Text style={styles.leftSection.username}>{personalDetails?.name}</Text>
-                {experience && (
-                  experience.map((job, idx)=>(
-                    <View key={idx}>
-                      <Text style={styles.leftSection.jobtitle}>{job?.jobTitle}</Text>
-                    </View>
-                  ))
-                )}
+                {Array.isArray(experience) && experience.map((job, idx) => (
+                  <View key={idx}>
+                    <Text style={styles.leftSection.jobtitle}>{job?.jobTitle}</Text>
+                  </View>
+                ))}
               </View>
             </View>
 
             {/* Profile */}
-            <View style={styles.leftSection.profileSection}>
-              <SectionHeader icon={UserIcon} text="Profile" />
-              <Text style={styles.leftSection.profileText}>{summary}</Text>
-            </View>
+            {summary && (
+              <View style={styles.leftSection.profileSection}>
+                <SectionHeader icon={UserIcon} text="Profile" />
+                <Text style={styles.leftSection.profileText}>{summary}</Text>
+              </View>
+            )}
 
             {/* Employment History */}
-            {experience?.length > 0 && (
+            {Array.isArray(experience) && experience.length > 0 && (
               <View style={styles.leftSection.employmentSection}>
                 <SectionHeader icon={Lock} text="Employment History" />
                 {experience.map((job, idx) => (
                   <View key={idx} style={styles.leftSection.dateandJob}>
                     <Text style={styles.leftSection.job}>{job.jobTitle}, {job.company}</Text>
                     <Text style={styles.leftSection.durationOfJob}>{job.startDate} - {job.endDate}</Text>
-                    {job.responsibilities && (
+                    {job.responsibilities?.trim() && (
                       <Text style={styles.leftSection.jobHistory}>{job.responsibilities}</Text>
                     )}
                   </View>
@@ -103,7 +100,7 @@ const MyDocument = ({ formData }) => {
             )}
 
             {/* Education */}
-            {education?.length > 0 && (
+            {Array.isArray(education) && education.length > 0 && (
               <View style={styles.leftSection.employmentSection}>
                 <SectionHeader icon={GraduationCap} text="Education" />
                 {education.map((edu, idx) => (
@@ -118,7 +115,7 @@ const MyDocument = ({ formData }) => {
             )}
 
             {/* Projects */}
-            {projects?.length > 0 && (
+            {Array.isArray(projects) && projects.length > 0 && (
               <View style={styles.leftSection.employmentSection}>
                 <SectionHeader icon={NetworkIcon} text="Projects" />
                 {projects.map((project, idx) => (
@@ -131,7 +128,7 @@ const MyDocument = ({ formData }) => {
             )}
 
             {/* Certifications */}
-            {certifications?.length > 0 && (
+            {Array.isArray(certifications) && certifications.length > 0 && (
               <View style={styles.leftSection.employmentSection}>
                 <SectionHeader icon={Layers} text="Certifications" />
                 {certifications.map((cert, idx) => (
@@ -146,7 +143,7 @@ const MyDocument = ({ formData }) => {
             )}
 
             {/* References */}
-            {references?.length > 0 && (
+            {Array.isArray(references) && references.length > 0 && (
               <View style={styles.leftSection.employmentSection}>
                 <SectionHeader icon={Link} text="References" />
                 {references.map((ref, idx) => (
@@ -162,29 +159,33 @@ const MyDocument = ({ formData }) => {
           {/* Right section */}
           <View style={styles.rightSection}>
             <Text style={styles.rightSection.rightHeader}>Details</Text>
-            
+
             {/* Personal Details */}
             <View style={styles.rightSection.userPersonalDetails}>
-              <Text style={styles.rightSection.userD}>{personalDetails?.address}</Text>
-              <Text style={styles.rightSection.userD}>{personalDetails?.country}</Text>
-              <Text style={styles.rightSection.userD}>{personalDetails?.phone}</Text>
-              <Text style={styles.rightSection.email}>{personalDetails?.email}</Text>
+              {personalDetails?.address && <Text style={styles.rightSection.userD}>{personalDetails.address}</Text>}
+              {personalDetails?.country && <Text style={styles.rightSection.userD}>{personalDetails.country}</Text>}
+              {personalDetails?.phone && <Text style={styles.rightSection.userD}>{personalDetails.phone}</Text>}
+              {personalDetails?.email && <Text style={styles.rightSection.email}>{personalDetails.email}</Text>}
 
               {/* Date/Place of Birth */}
-              <View>
-                <Text style={styles.rightSection.sectionLabel}>Date / Place of Birth</Text>
-                <Text style={styles.rightSection.sectionContent}>{personalDetails?.dob}</Text>
-              </View>
+              {personalDetails?.dob && (
+                <View>
+                  <Text style={styles.rightSection.sectionLabel}>Date / Place of Birth</Text>
+                  <Text style={styles.rightSection.sectionContent}>{personalDetails.dob}</Text>
+                </View>
+              )}
 
               {/* Nationality */}
-              <View>
-                <Text style={styles.rightSection.sectionLabel}>Nationality</Text>
-                <Text style={styles.rightSection.sectionContent}>{personalDetails?.nationality}</Text>
-              </View>
+              {personalDetails?.nationality && (
+                <View>
+                  <Text style={styles.rightSection.sectionLabel}>Nationality</Text>
+                  <Text style={styles.rightSection.sectionContent}>{personalDetails.nationality}</Text>
+                </View>
+              )}
             </View>
 
             {/* Languages */}
-            {languages?.length > 0 && (
+            {Array.isArray(languages) && languages.length > 0 && (
               <View style={styles.rightSection.languagesCont}>
                 <Text style={styles.rightSection.sectionLabel}>Languages</Text>
                 {languages.map((lang, idx) => (
@@ -196,7 +197,7 @@ const MyDocument = ({ formData }) => {
             )}
 
             {/* Skills */}
-            {skills?.length > 0 && (
+            {Array.isArray(skills) && skills.length > 0 && (
               <View style={styles.rightSection.skillsSection}>
                 <Text style={styles.rightSection.sectionLabel}>Skills</Text>
                 {skills.map((skill, idx) => (
@@ -208,7 +209,7 @@ const MyDocument = ({ formData }) => {
             )}
 
             {/* Hobbies */}
-            {hobbies?.length > 0 && (
+            {Array.isArray(hobbies) && hobbies.length > 0 && (
               <View style={styles.rightSection.skillsSection}>
                 <Text style={styles.rightSection.sectionLabel}>Hobbies</Text>
                 {hobbies.map((hobby, idx) => (

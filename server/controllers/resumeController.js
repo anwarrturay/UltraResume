@@ -18,7 +18,7 @@ const createNewResume = asyncHandler(async (req, res) => {
     const userId = req.params?.id
     if(!userId) return res.status(404).json({message: "User Id Not Found"});
 
-    if( !personalDetails || !experience || !education || !skills || !summary || !projects || !certifications || !languages || !references || !hobbies) {
+    if ( !personalDetails || !experience || !education || !skills || !summary || !projects || !certifications || !languages || !references || !hobbies) {
         return res.status(400).json({ message: "All required fields must be provided" });
     }
 
@@ -96,6 +96,7 @@ const createNewResume = asyncHandler(async (req, res) => {
             resumeUrl, 
             savedResume 
         });
+
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal server error" });

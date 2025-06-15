@@ -35,7 +35,7 @@ const Languages = ({ formData, setFormData}) => {
   return (
     <div className="space-y-6 font-Montserrat">
       <div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Languages</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Languages Spoken</h2>
         
         <div className="space-y-4">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
